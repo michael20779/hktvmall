@@ -1,13 +1,14 @@
-from flask import current_app, redirect, url_for, flash, request, render_template
+from flask import redirect, url_for, flash, request, render_template, abort, Response
 from flask_babel import _
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
 
 from app import db
 from app.auth import bp
 from app.auth.email import send_password_reset_email
 from app.auth.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
-from app.models import User
+from app.models import User, Img
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -40,7 +41,7 @@ def register():
         return redirect(url_for('main.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data,phonenumber=form.phonenumber.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -79,3 +80,30 @@ def reset_password(token):
         flash(_('Your password has been reset.'))
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
+
+
+@bp.route('/upload', methods=['POST'])
+def upload():
+    pic = request.files['pic']
+
+    if not pic:
+        return 'No pic uploaded'
+
+    filename = secure_filename(pic.filename)
+    mimetype = pic.mimetype
+
+    img = Img(img=pic.read(), mimetype=mimetype, name=filename)
+    db.session.add(img)
+    db.session.commit()
+
+    return 'Img has been uploaded!'
+
+    return render_template('index.html', title=_('Image'))
+
+
+@bp.route('/<int:id>')
+def get_img(id):
+    img = Img.query.filter_by(id=id).first()
+    if not img:
+        return 'No img with that id'
+    return render_template('index.html', title=_('Image'))
