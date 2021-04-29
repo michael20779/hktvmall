@@ -59,6 +59,8 @@ def user(username):
                            next_url=next_url, prev_url=prev_url)
 
 
+
+
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
