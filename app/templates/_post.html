@@ -2,7 +2,7 @@
     <tr>
         <td width="70px">
             <a href="{{ url_for('main.user', username=post.author.username) }}">
-                <img src="{{ post.author.avatar(70) }}"/>
+                <img src="{{ url_for('static',filename='img/notice.jpg') }}">
             </a>
         </td>
         <td>

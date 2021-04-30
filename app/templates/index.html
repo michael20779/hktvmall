@@ -1,27 +1,73 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block current_app_content %}
-    <h1>{{ _('Hi, %(username)s!', username=current_user.username) }}</h1>
-    {% if form %}
-        {{ wtf.quick_form(form) }}
-        <br>
-    {% endif %}
-    {% for post in posts %}
-        {% include '_post.html' %}
-    {% endfor %}
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> {{ _('Newer posts') }}
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    {{ _('Older posts') }} <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <!-- Wrapper for slides -->
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+       <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+       <li data-target="#carousel-example-generic" data-slide-to="1" ></li>
+       <li data-target="#carousel-example-generic" data-slide-to="2" ></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3" ></li>
+    </ol>
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="jumbotron">
+                <center>
+                <button class="btn btn-primary btn-lg">
+                        <a href="https://www.hktvmall.com/hktv/zh/search?page=0&q=%3Alive-time-asc%3Acategory%3ABB01000054351%3AcategoryHotPickOrder%3ABB01000054351%3Azone%3Asupermarket%3Astreet%3Amain%3A/">
+                            <image src="{{ url_for('static', filename='img/hktvmall5.jpg')}}" style="background-size: 100% 100%;background-repeat: no-repeat;"></image>
+                        </a>
+                </button>
+                </center>
+           </div>
+        </div>
+
+        <div class="item">
+            <div class="jumbotron">
+                <center>
+                <button class="btn btn-primary btn-lg">
+                        <a href="https://cloud.marketing.hktvmall.com/HKTVLive?openinapp=true&autoTriggerApp=true&fastrender=true">
+                            <image src="{{ url_for('static', filename='img/hktvmall2.jpg')}}" style="background-size: 100% 100%;background-repeat: no-repeat;"></image>
+                        </a>
+                </button>
+                </center>
+           </div>
+        </div>
+
+        <div class="item">
+            <div class="jumbotron">
+                <center>
+                <button class="btn btn-primary btn-lg">
+                        <a href="https://www.hktvmall.com/hktv/zh/main/search?page=0&q=%3Alive-time-asc%3Acategory%3ABB09000021951%3AcategoryHotPickOrder%3ABB09000021951%3Azone%3Abeautynhealth%3Astreet%3Amain%3A?openinapp=true&autoTriggerApp=true&backstack=true&fastrender=true?utm_source">
+                            <image src="{{ url_for('static', filename='img/hktvmall3.jpg')}}" style="background-size: 100% 100%;background-repeat: no-repeat;"></image>
+                        </a>
+                </button>
+                </center>
+           </div>
+        </div>
+
+        <div class="item">
+            <div class="jumbotron">
+                <center>
+                <button class="btn btn-primary btn-lg">
+                        <a href="https://cloud.marketing.hktvmall.com/citihktvmallcardpreannounce?openinapp=true&autoTriggerApp=true&fastrender=true&backstack=true">
+                            <img src="{{ url_for('static', filename='img/hktvmall4.jpg')}}" style="background-size: 100% 100%;background-repeat: no-repeat;"></img>
+                        </a>
+                </button>
+                </center>
+           </div>
+        </div>
+</div>
+    </div>
+
+    <center>
+        <image src="{{ url_for('static', filename='img/hktvmall6.jpg')}}" style="background-size: 100% 100%;background-repeat: no-repeat;"></image>
+    </center>
+
+
 {% endblock %}
