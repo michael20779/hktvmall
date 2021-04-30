@@ -79,5 +79,22 @@ def edit_profile():
     return render_template('edit_profile.html', title=_('Edit Profile'),
                            form=form)
 
+@bp.route("/set")
+def setcookie():
+    resp = make_response('Setting cookie!')
+    resp.set_cookie(key='framework', value='flask', expires=time.time()+6*60)
+    return resp
 
+
+@bp.route("/get")
+def getcookie():
+    framework = request.cookies.get('framework')
+    return 'The framework is ' + framework
+
+
+@bp.route('/del')
+def del_cookie():
+    res = Response('delete cookies')
+    res.set_cookie(key='framework', value='', expires=0)
+    return res
 
