@@ -2,10 +2,17 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block current_app_content %}
-    <h1>{{ _('Register') }}</h1>
+    <p>{{ _('*Required information') }}</p>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             {{ wtf.quick_form(form) }}
         </div>
     </div>
+    <hr>
+    <h4 align="center">Or</h4>
+    <form action="/action_page.php">
+  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+  <label for="vehicle1">I confirm that I am over 18 years old, and agree and accept  General Terms & Conditions  as well as  Privacy Policy  .  </label><br>
+  <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+  <label for="vehicle2">I agree to the use of my personal data for direct marketing purposes as set out in the Privacy Policy.</label><br>
 {% endblock %}
