@@ -2,10 +2,63 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block title %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block content %}
-   
+    <center>
+    <div class="container">
+    <h2>Upload Images</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                    <strong>{{message}}</strong>
+                    </div>
+                {% endfor %}
+                {%endif%}
+                {%endwith%}
+            </p>
+            <div>
+
+                <form method="post" action="/upload" enctype="multipart/form-data" class="form-inline">
+                    <div class="form-group">
+                        <label>Choose Images: </label>
+                        <input type="file" name="file[]" id="fileInput" class="form-control" multiple>
+                    </div>
+                    <input type="submit" name="submit" class="btn btn-success" value="UPLOAD"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+    // File type validation
+        $("#fileInput").change(function(){
+            var fileLength = this.files.length;
+            var match= ["image/jpeg", "image/png", "image/jpg", "image/gif"];
+            var i;
+            for(i = 0; i < fileLength; i++){
+                var file = this.files[i];
+                var imagefile = file.type;
+                if(!((imagefile==match[0]) || (imagefile==match[1]) || (imagefile==match[2]) || (imagefile==match[3]))){
+                    alert('Please select a valid image file (JPEG/JPG/PNG/GIF).');
+                    $("#fileInput").val('');
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+</center>
+
+    <!-- Wrapper for slides -->
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -13,7 +66,7 @@
        <li data-target="#carousel-example-generic" data-slide-to="2" ></li>
         <li data-target="#carousel-example-generic" data-slide-to="3" ></li>
     </ol>
-    
+    <!-- Wrapper for slides -->
     <div class="carousel-inner">
         <div class="item active">
             <div class="jumbotron">
@@ -68,7 +121,5 @@
     <center>
         <image src="{{ url_for('static', filename='img/hktvmall6.jpg')}}" style="background-size: 100% 100%;background-repeat: no-repeat;"></image>
     </center>
-
-
 
 {% endblock %}
