@@ -4,8 +4,9 @@ from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from app import current_app, db
 from app.main.forms import EditProfileForm, PostForm
-from app.models import User, Post
+from app.models import User, Post,Content
 from app.main import bp
+from data import name
 import time
 
 @bp.before_request
